@@ -9,7 +9,7 @@ const defaultProps = {
   show: false
 }
 
-class Window extends BrowserWindow {
+class MainWindow extends BrowserWindow {
   constructor ({ file, ...windowSettings }) {
     // calls new BrowserWindow with these props
     super({ ...defaultProps, ...windowSettings })
@@ -25,4 +25,4 @@ class Window extends BrowserWindow {
   }
 }
 
-module.exports = Window
+module.exports = MainWindow

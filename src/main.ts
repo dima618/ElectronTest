@@ -6,11 +6,12 @@ const { ConnectionBuilder } = require("electron-cgi");
 import { app, BrowserWindow } from "electron";
 
 const window = require('./Window');
+let mainWindow: BrowserWindow | null;
 
 function main() {
-  let mainWindow = new window({
+  mainWindow = new window({
     file: 'index.html'
-  })
+  });
 }
 
 app.on("ready", main);
@@ -22,8 +23,8 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-  if (window === null) {
-    main;
+  if (mainWindow === null) {
+    main();
   }
 });
 
@@ -36,6 +37,6 @@ connection.onDisconnect = () => {
 };
 
 connection.send("greeting", "from C#", (response: any) => {
-  window.webContents.send("greeting", response);
+  mainWindow.webContents.send("greeting", response);
   connection.close();
 });
